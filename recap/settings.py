@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # My apps
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -112,6 +114,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# Authentication
+AUTH_USER_MODEL = 'users.CustomUser'
+
 
 
 # Static files (CSS, JavaScript, Images)
