@@ -17,8 +17,9 @@
       <p>Hello, <strong>{{ user.username }}</strong></p>
       <a href="{% url 'logout' %}">Logout</a>
     {% else %}
-      <p>Please login</p>
+      <p>Please login or Signup</p>
       <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
     {%  endif %}
     </div>
   </body>
