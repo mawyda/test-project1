@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
+from django.contrib.auth.decorators import login_required
 
 from .models import Blog
 from .forms import BlogForm
 
+@login_required
 def allblogs(request):
     """Landing page of the blogs app."""
-    blogs = Blog.objects.all()
+    #blogs = Blog.objects.all()
+    blogs = Blog.objects.filter(owner = request.user)
 
     return render(request, 'blogs/allblogs.html', {'blogs': blogs})
 
+@login_required
 def create(request):
     """Simple creation for a blog"""
     if request.method != 'POST':
@@ -19,22 +23,34 @@ def create(request):
         form = BlogForm(data = request.POST)
         # Validate
         if form.is_valid():
-            form.save()
+            # Steps to save the ForeignKey. save() on form returns the model obj
+            blog = form.save(commit = False)
+            blog.owner = request.user
+            blog.save()
+
             # Redirect to all blogs
             return HttpResponseRedirect(reverse('allblogs'))
 
     return render(request, 'blogs/create.html', {'form': form})
 
+@login_required
 def details(request, blog_id):
     """Read page of the blog entry."""
     blog = Blog.objects.get(id=blog_id)
+    # Steps to determine ownership
+    if request.user != blog.owner:
+        raise Http404
 
     return render(request, 'blogs/details.html', {'blog': blog})
 
+@login_required
 def update(request, blog_id):
     """Update the blog post"""
-    # Must be passed to any conditional
     blog = Blog.objects.get(id = blog_id)
+
+    # Steps to determine ownership
+    if request.user != blog.owner:
+        raise Http404
 
     if request.method != 'POST':
         # Assume GET
@@ -56,6 +72,7 @@ def update(request, blog_id):
     context = {'blog': blog, 'form': form}
     return render(request, 'blogs/update.html', context)
 
+@login_required
 def delete(request, blog_id):
     """Delete blog entry. Redirects to all blogs.:"""
     ### NOTES ###
@@ -65,6 +82,10 @@ def delete(request, blog_id):
     For now, take it to a page with two options: Yes or No.
     '''
     blog = Blog.objects.get(id = blog_id)
+
+    # Steps to determine ownership
+    if request.user != blog.owner:
+        raise Http404
 
     if request.method == 'POST':
         # Check for which input was selected. Works by checking the keys

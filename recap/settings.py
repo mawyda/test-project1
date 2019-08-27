@@ -123,6 +123,9 @@ AUTH_USER_MODEL = 'users.CustomUser'
 # Redirection
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+# Testing shows that the below hasn't been necessary...
+LOGIN_URL = 'login'
+
 
 # Emails
 # Current using the dev server
