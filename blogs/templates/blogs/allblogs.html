@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All Blogs</title>
+  </head>
+  <body>
+    <h2>Welcome to the blog site</h2>
+    <a href="{% url 'home' %}">Return Home</a>
+    <br />
+    <br />
+    <a href="{% url 'create' %}">Create a blog post</a>
+    {% if blogs %}
+    <ul>
+      {% for blog in blogs %}
+      <li><a href="{% url 'details' blog.id %}">{{ blog.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No data exists. Create one now.</p>
+    {% endif %}
+  </body>
+</html>

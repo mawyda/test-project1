@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ blog.title }}</title>
+  </head>
+  <body>
+    <a href="{% url 'allblogs' %}">Back to Blogs</a>
+    <p><a href="{% url 'update' blog.id%}">Update the blog here</a></p>
+    <p><a href="{% url 'delete' blog.id %}">Delete the Post here</a></p>
+    <h2>{{ blog.title }}</h2>
+    <p>{{ blog.date }}</p>
+    <br />
+    <p>{{ blog.content|linebreaks }}</p>
+    <br />
+  </body>
+</html>

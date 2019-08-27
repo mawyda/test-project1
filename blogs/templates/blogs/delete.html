@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete post</title>
+  </head>
+  <body>
+    <h2>Delete Post</h2>
+    <p>Are you sure you want to delete the post:</p>
+    <p>{{ blog.title }}</p>
+    <br />
+    <form action="{% url 'delete' blog.id %}" method="post">
+      {% csrf_token %}
+      <input type="submit" name="_yes" value="YES" />
+      <input type="submit" name="_no" value="NO" />
+    </form>
+  </body>
+<html>

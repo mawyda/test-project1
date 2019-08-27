@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<!-- Can't the template be the same? Maybe pass in some text information
+  from the view, instead of having a separate template.
+-->
+<html>
+  <head>
+    <title>Update the blog post</title>
+  </head>
+  <body>
+    <h2>Update tyhe blog post here</h2>
+    <form action="{% url 'update' blog.id %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Update!" />
+    </form>
+  </body>
+</html>
