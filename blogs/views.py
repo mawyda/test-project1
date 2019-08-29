@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
@@ -36,7 +36,8 @@ def create(request):
 @login_required
 def details(request, blog_id):
     """Read page of the blog entry."""
-    blog = Blog.objects.get(id=blog_id)
+    #blog = Blog.objects.get(id=blog_id)
+    blog = get_object_or_404(Blog, pk = blog_id)
     # Steps to determine ownership
     if request.user != blog.owner:
         raise Http404
@@ -46,7 +47,8 @@ def details(request, blog_id):
 @login_required
 def update(request, blog_id):
     """Update the blog post"""
-    blog = Blog.objects.get(id = blog_id)
+    #blog = Blog.objects.get(id = blog_id)
+    blog = get_object_or_404(Blog, pk = blog_id)
 
     # Steps to determine ownership
     if request.user != blog.owner:
@@ -81,7 +83,8 @@ def delete(request, blog_id):
     truly want to delete the entry. I think this would be JS.
     For now, take it to a page with two options: Yes or No.
     '''
-    blog = Blog.objects.get(id = blog_id)
+    #blog = Blog.objects.get(id = blog_id)
+    blog = get_object_or_404(Blog, pk = blog_id)
 
     # Steps to determine ownership
     if request.user != blog.owner:
