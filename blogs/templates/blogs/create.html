@@ -4,10 +4,14 @@
 -->
 <html>
   <head>
+    {{ form.media }}
     <title>Create the blog post</title>
   </head>
   <body>
     <h2>Make a new post here</h2>
+    <a href="{% url 'allblogs' %}">Back...</a>
+    <br />
+    <hr />
     <form action="{% url 'create' %}" method="post">
       {% csrf_token %}
       {{ form.as_p }}

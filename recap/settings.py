@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     # My apps
     'users.apps.UsersConfig',
     'blogs.apps.BlogsConfig',
+    # Third party
+    'pagedown',
+    'markdown_deux',
 ]
 
 MIDDLEWARE = [
@@ -134,5 +137,8 @@ EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'sent_emails')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATCIFILES_DIRS = []
 
 STATIC_URL = '/static/'
